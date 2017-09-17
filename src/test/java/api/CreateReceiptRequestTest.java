@@ -41,4 +41,15 @@ public class CreateReceiptRequestTest {
         validator.validate(receipt);
         assertThat(validator.validate(receipt), hasSize(1));
     }
+
+
+    @Test
+    public void testTag() {
+        CreateTagRequest tag = new CreateTagRequest();
+        tag.id = new Integer(2);
+
+        validator.validate(tag);
+        assertThat(validator.validate(tag), hasSize(1));
+    }
+
 }

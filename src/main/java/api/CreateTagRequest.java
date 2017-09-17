@@ -9,12 +9,12 @@ import java.math.BigDecimal;
  *
  * Fields can be annotated with Validation annotations - these will be applied by the
  * Server when transforming JSON requests into Java objects IFF you specify @Valid in the
- * endpoint.  See {@link controllers.ReceiptController#createReceipt(CreateReceiptRequest)} for
+ * endpoint.  See {@link controllers.ReceiptController#createReceipt(CreateTagRequest)} for
  * and example.
  */
-public class CreateReceiptRequest {
-    @NotEmpty
-    public String merchant;
 
-    public BigDecimal amount;
+public class CreateTagRequest {
+    @NotEmpty
+    public Integer id;
+
 }
