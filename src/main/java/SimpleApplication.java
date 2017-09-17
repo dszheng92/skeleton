@@ -1,17 +1,10 @@
-<<<<<<< HEAD
 import controllers.HelloWorldController;
 import controllers.NetidController;
-||||||| merged common ancestors
 import controllers.HelloWorldController;
-=======
->>>>>>> 9a8925afa9756cad50a21d1cbf42f8d8deb66d4f
 import controllers.ReceiptController;
-<<<<<<< HEAD
 import controllers.TaoController;
-||||||| merged common ancestors
-=======
+
 import controllers.StaticHtmlController;
->>>>>>> 9a8925afa9756cad50a21d1cbf42f8d8deb66d4f
 import dao.ReceiptDao;
 import dao.TaoDao;
 import io.dropwizard.Application;
