@@ -1,13 +1,20 @@
 $(function () {
+
     const api = receiptsApi();
-    const ctrl = receiptsController(api);
-    const reducer = receiptsReducer();
+
+
     const elements = getElements();
     const elGen = getElementsGenerator(tagReceipt);
+
+
     const digest = getDigestFunction(elements, elGen);
+    const ctrl = receiptsController(api);
+    const reducer = receiptsReducer();
 
     var state = reducer({}, {type: 'INIT_STATE'}),
         errorTimeout;
+
+
 
     function saveNewReceipt() {
         const receipt = {
