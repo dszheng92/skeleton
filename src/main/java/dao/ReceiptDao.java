@@ -1,6 +1,5 @@
 package dao;
 
-import api.ReceiptResponse;
 import generated.tables.records.ReceiptsRecord;
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
@@ -19,14 +18,14 @@ public class ReceiptDao {
         this.dsl = DSL.using(jooqConfig);
     }
 
-    public int insert(String merchantName, BigDecimal amount) {
+    public int insertReceipt(String merchantName, BigDecimal amount) {
         ReceiptsRecord receiptsRecord = dsl
                 .insertInto(RECEIPTS, RECEIPTS.MERCHANT, RECEIPTS.AMOUNT)
                 .values(merchantName, amount)
                 .returning(RECEIPTS.ID)
                 .fetchOne();
 
-        checkState(receiptsRecord != null && receiptsRecord.getId() != null, "Insert failed");
+        checkState(receiptsRecord != null && receiptsRecord.getId() != null, "Insertion failed");
 
         return receiptsRecord.getId();
     }

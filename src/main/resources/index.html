@@ -2,58 +2,215 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="style.css" />
-    <script data-require="jquery@*" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <style>
-        #container {border: 1px solid brown;}
-        H1 {float: left;}
 
-        .button{
-            background-color:#55A;
-            border: 1px solid #229;
-            width: 100px;
-            float: right;
-            font-size: 2em;
-            color: white;
+    <script data-require="jquery@*" data-semver="3.1.1"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        button {
+            background-color: orange;
+            border: none;
+            font-size: 3rem;
+            color: black;
             text-align: center;
+            padding: 1rem 2rem;
+            margin: 1rem;
+            font-weight: 300;
+            cursor: pointer;
+            user-select: none;
+            outline: none;
+            border-radius: 9px;
+            text-transform: uppercase;
+        }
+
+        button.primary {
+            background: green;
+            color: white;
+        }
+
+        input {
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            font-weight: 200;
+            font-size: 1rem;
+            border: 1px solid aliceblue;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: mediumblue;
+        }
+
+        input.tag_input {
+            width: 5rem;
+            margin: 0.25rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        #container {
+            border: 1px solid #78909C;
+            font-family: 'Roboto';
+            margin: 1rem;
+            padding: 1rem;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .app-title {
+            font-size: 6rem;
+            font-weight: 100;
+            margin: 1rem;
+            color: black;
+
+        }
+
+        #new-receipt-container {
+            display: none;
+            text-align: right;
+            position: relative;
+            background-color: orange;
+
+        }
+
+        #input-error {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-right: 1rem;
+            font-size: 1rem;
+            color: red;
+
         }
 
         #receiptList {
-            border: 1px solid green;
+            border: 1px cornflowerblue;
             clear: both;
+
         }
 
-        .receipt {
-            background-color: #eee;
-            margin-bottom: 5px;
+        .receipt, .receiptList-header {
+            display: flex;
+            flex-direction: row;
+            background-color: skyblue;
+
+        }
+
+        .receipt > span, .receiptList-header > span {
+            display: flex;
+            margin: 1rem;
+            padding: 1rem;
+            font-size: 2rem;
+            width: 20%;
+            font-weight: 300;
+            align-items: center;
+            background-color: skyblue;
+        }
+
+        .receipt > span.receiptTag, .receiptList-header > span.receiptTag {
+            flex-grow: 1;
+        }
+
+        .receipt > span.receiptTag {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .receiptList-header > span {
+            padding: 1rem;
+            font-size: 2rem;
+
+        }
+
+        .receipt:nth-child(odd) > span {
+            background: lightskyblue;
+        }
+
+        .receipt:nth-child(even) > span {
+            background: skyblue;
+        }
+
+        .tag-chip {
+            margin: 0.25rem;
+            border-radius: 1rem;
+            padding: 0.25rem 1.25rem 0.25rem 0.5rem;
+            text-transform: none;
+            color: black;
+            border: none;
+            background: skyblue;
+            cursor: pointer;
+            white-space: nowrap;
+            position: relative;
+
+        }
+
+        .tag-chip::after {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin: 0 0.5rem;
+            line-height: 0;
+            display: inline-block;
+            transform: translateY(-50%);
+            content: 'x'
+        }
+
+        .tag-chip:hover {
+            opacity: 0.9;
+        }
+
+        button.tag-chip {
+            background: cornflowerblue;
+            color: white;
+            padding: 0.5rem 1.5rem 0.5rem 1rem;
+            margin: 0.5rem;
+            box-shadow: none;
+
+        }
+
+        button.tag-chip::after {
+            content: '+'
         }
 
     </style>
-    <script>
-        // This is the idiomatic way to ensure that JQuery does not
-        // execute until the page has loaded
-        $(function(){
-//            const api = ""; // <- do not need a root api URL if this page is served directly by the API
 
-            $.getJSON("/receipts", function(receipts){
-                for(var i=0; i < receipts.length; i++) {
-                    var receipt = receipts[i];
-                    $(`<div class="receipt">${receipt.merchantName}<div><span class="receiptTag">t1</span></div></div>`)
-                        .appendTo($("#receiptList"));
-                }
+    <script src="js/main.js"></script>
+    <title>dz336</title>
 
-            })
-        })
-    </script>
 </head>
 
 <body>
-<DIV id="container">
-    <h1>My receipts</h1>
-    <div class="button">+</div>
+<div id="container">
+    <div class="navbar">
+        <div class="app-title">My Receipts</div>
+        <button id="add-receipt">+</button>
+    </div>
+
+
+
+    <div id="new-receipt-container">
+        <input type="text" id="merchant" placeholder="merchant">
+        <input type="number" id="amount" placeholder="amount">
+        <button id="cancel-receipt">cancel</button>
+        <button id="save-receipt" class="primary">save</button>
+        <div id="input-error"></div>
+    </div>
+
+
+
+    <div class="receiptList-header">
+        <span>Time</span>
+        <span>Merchant</span>
+        <span>$</span>
+        <span class="receiptTag">Tags</span>
+    </div>
+
     <div id="receiptList">
     </div>
-</DIV>
+</div>
 </body>
-
-</html>

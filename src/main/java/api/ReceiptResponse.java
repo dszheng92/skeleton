@@ -2,9 +2,10 @@ package api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import generated.tables.records.ReceiptsRecord;
-
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is an API Object.  Its purpose is to model the JSON API that we expose.
@@ -15,6 +16,7 @@ import java.sql.Time;
  * Any properties that you want exposed when this class is translated to JSON must be
  * annotated with {@link JsonProperty}
  */
+
 public class ReceiptResponse {
     @JsonProperty
     Integer id;
@@ -28,10 +30,22 @@ public class ReceiptResponse {
     @JsonProperty
     Time created;
 
+    @JsonProperty
+    List<String> tags;
+
     public ReceiptResponse(ReceiptsRecord dbRecord) {
         this.merchantName = dbRecord.getMerchant();
         this.value = dbRecord.getAmount();
         this.created = dbRecord.getUploaded();
         this.id = dbRecord.getId();
+        this.tags = new ArrayList<>();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 }

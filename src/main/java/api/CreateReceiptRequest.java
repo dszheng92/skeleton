@@ -12,7 +12,9 @@ import java.math.BigDecimal;
  * endpoint.  See {@link controllers.ReceiptController#createReceipt(CreateReceiptRequest)} for
  * and example.
  */
+
 public class CreateReceiptRequest {
+
     @NotEmpty
     public String merchant;
 
