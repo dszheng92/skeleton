@@ -7,6 +7,37 @@
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <style type="text/css">
+
+        #container {
+            border: 1px solid royalblue;
+            font-family: 'Roboto';
+            margin: 1rem;
+            padding: 1rem;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .app-title {
+            font-size: 6rem;
+            font-weight: 100;
+            margin: 1rem;
+            color: black;
+
+        }
+
+        #new-receipt-container {
+            display: none;
+            text-align: right;
+            position: relative;
+            background-color: orange;
+
+        }
+
         button {
             background-color: orange;
             border: none;
@@ -47,35 +78,8 @@
             padding: 0.25rem 0.5rem;
         }
 
-        #container {
-            border: 1px solid #78909C;
-            font-family: 'Roboto';
-            margin: 1rem;
-            padding: 1rem;
-        }
 
-        .navbar {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-        }
 
-        .app-title {
-            font-size: 6rem;
-            font-weight: 100;
-            margin: 1rem;
-            color: black;
-
-        }
-
-        #new-receipt-container {
-            display: none;
-            text-align: right;
-            position: relative;
-            background-color: orange;
-
-        }
 
         #input-error {
             position: absolute;
@@ -91,6 +95,49 @@
             border: 1px cornflowerblue;
             clear: both;
 
+        }
+
+
+        .tag-chip {
+            margin: 0.25rem;
+            border-radius: 1rem;
+            padding: 0.25rem 1.25rem 0.25rem 0.5rem;
+            text-transform: none;
+            color: black;
+            border: none;
+            background: skyblue;
+            cursor: pointer;
+            white-space: nowrap;
+            position: relative;
+
+        }
+
+        .tag-chip::after {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin: 0 0.5rem;
+            line-height: 0;
+            display: inline-block;
+            transform: translateY(-50%);
+            content: 'x'
+        }
+
+        .tag-chip:hover {
+            opacity: 0.9;
+        }
+
+        button.tag-chip {
+            background: cornflowerblue;
+            color: white;
+            padding: 0.5rem 1.5rem 0.5rem 1rem;
+            margin: 0.5rem;
+            box-shadow: none;
+
+        }
+
+        button.tag-chip::after {
+            content: '+'
         }
 
         .receipt, .receiptList-header {
@@ -133,48 +180,6 @@
 
         .receipt:nth-child(even) > span {
             background: skyblue;
-        }
-
-        .tag-chip {
-            margin: 0.25rem;
-            border-radius: 1rem;
-            padding: 0.25rem 1.25rem 0.25rem 0.5rem;
-            text-transform: none;
-            color: black;
-            border: none;
-            background: skyblue;
-            cursor: pointer;
-            white-space: nowrap;
-            position: relative;
-
-        }
-
-        .tag-chip::after {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            margin: 0 0.5rem;
-            line-height: 0;
-            display: inline-block;
-            transform: translateY(-50%);
-            content: 'x'
-        }
-
-        .tag-chip:hover {
-            opacity: 0.9;
-        }
-
-        button.tag-chip {
-            background: cornflowerblue;
-            color: white;
-            padding: 0.5rem 1.5rem 0.5rem 1rem;
-            margin: 0.5rem;
-            box-shadow: none;
-
-        }
-
-        button.tag-chip::after {
-            content: '+'
         }
 
     </style>
