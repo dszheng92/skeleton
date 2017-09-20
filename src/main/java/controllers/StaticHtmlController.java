@@ -17,17 +17,6 @@ public class StaticHtmlController {
         return Resources.toString(Resources.getResource("index.html"), UTF_8);
     }
 
-
-    @Path("jQuery/{filename}")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getJsFile(@PathParam("filename") String fileName) throws IOException {
-        fileName = "jQuery/" + fileName;
-        Resources.getResource(fileName);
-        return Resources.toString(Resources.getResource(fileName), UTF_8);
-    }
-
-
     @Path("/netid")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
