@@ -1,13 +1,56 @@
+
+function receiptApi() {
+    function POST(url, data) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                complete: resolve,
+                error: reject
+            });
+        });
+    }
+
+    function GET_JSON(url) {
+        return new Promise(function (resolve) {
+            $.getJSON(url, resolve)
+        });
+    }
+
+    function PUT(url, data) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                complete: resolve,
+                error: reject
+            });
+        });
+    }
+
+    return {
+        POST: POST,
+        GET_JSON: GET_JSON,
+        PUT: PUT
+    }
+}
+
+
+
 $(function () {
 
-    const api = receiptsApi();
+    const api = receiptApi();
 
 
-    const elements = getElements();
-    const elGen = getElementsGenerator(tagReceipt);
+    const elements = getElement();
+    const elGen = getGenerator(tagReceipt);
 
 
-    const digest = getDigestFunction(elements, elGen);
+    const digest = getDigestion(elements, elGen);
     const ctrl = receiptsController(api);
     const reducer = receiptsReducer();
 
@@ -90,6 +133,7 @@ $(function () {
 
 });
 
+
 function connectElementsBehaviours(elements, behaviours) {
     elements.addReceiptButton.click(function () {
         if (elements.createReceiptContainer.is(':visible')) {
@@ -107,10 +151,10 @@ function connectElementsBehaviours(elements, behaviours) {
     elements.saveReceiptButton.click(behaviours.saveNewReceipt);
 }
 
-function getElements() {
+function getElement() {
     return {
         addReceiptButton: $('#add-receipt'),
-        createReceiptContainer: $('#new-receipt-container'),
+        createReceiptContainer: $('#receipt-container'),
         cancelReceiptButton: $('#cancel-receipt'),
         saveReceiptButton: $('#save-receipt'),
         merchantInput: $('#merchant'),
@@ -120,7 +164,7 @@ function getElements() {
     };
 }
 
-function getElementsGenerator(tagReceipt) {
+function getGenerator(tagReceipt) {
     function addTagInput(receipt) {
         const tag = $(`
             <input class="tag_input" type="text" style="display: none;">
@@ -186,7 +230,7 @@ function getElementsGenerator(tagReceipt) {
 
     function addTagInputToggle(addTagInputElement) {
         const addTagInputElementToggle = $(`
-            <button class="add-tag tag-chip">Add tag</button>
+            <button class="add-tag tag-chip">Add +</button>
         `);
 
         addTagInputElementToggle.click(function () {
@@ -204,74 +248,6 @@ function getElementsGenerator(tagReceipt) {
     };
 }
 
-function getDigestFunction(elements, elementsGenerator) {
-    return function (state) {
-        elements.receiptList.empty();
-        state.receipts.forEach(function (receipt) {
-            elements.receiptList.append(elementsGenerator.receiptRow(receipt));
-        });
-    }
-}
-
-function receiptsController(api) {
-    function postReceipt(receipt) {
-        return api.POST("/receipts", receipt);
-    }
-
-    function getReceipts() {
-        return api.GET_JSON('/receipts');
-    }
-
-    function tagReceipt(id, tagName) {
-        return api.PUT('/tags/' + tagName, id);
-    }
-
-    return {
-        postReceipt: postReceipt,
-        getReceipts: getReceipts,
-        tagReceipt: tagReceipt
-    }
-}
-
-function receiptsApi() {
-    function POST(url, data) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: 'POST',
-                url: url,
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                complete: resolve,
-                error: reject
-            });
-        });
-    }
-
-    function GET_JSON(url) {
-        return new Promise(function (resolve) {
-            $.getJSON(url, resolve)
-        });
-    }
-
-    function PUT(url, data) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: 'PUT',
-                url: url,
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                complete: resolve,
-                error: reject
-            });
-        });
-    }
-
-    return {
-        POST: POST,
-        GET_JSON: GET_JSON,
-        PUT: PUT
-    }
-}
 
 function receiptsReducer() {
     return function (state, action) {
@@ -325,3 +301,36 @@ function receiptsReducer() {
         return state;
     }
 }
+
+function getDigestion(elements, elementsGenerator) {
+    return function (state) {
+        elements.receiptList.empty();
+        state.receipts.forEach(function (receipt) {
+            elements.receiptList.append(elementsGenerator.receiptRow(receipt));
+        });
+    }
+}
+
+
+
+function receiptsController(api) {
+    function postReceipt(receipt) {
+        return api.POST("/receipts", receipt);
+    }
+
+    function getReceipts() {
+        return api.GET_JSON('/receipts');
+    }
+
+    function tagReceipt(id, tagName) {
+        return api.PUT('/tags/' + tagName, id);
+    }
+
+    return {
+        postReceipt: postReceipt,
+        getReceipts: getReceipts,
+        tagReceipt: tagReceipt
+    }
+}
+
+

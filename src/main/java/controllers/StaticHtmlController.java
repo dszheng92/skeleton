@@ -17,23 +17,16 @@ public class StaticHtmlController {
         return Resources.toString(Resources.getResource("index.html"), UTF_8);
     }
 
-    @Path("js/{filename}")
+
+    @Path("jQuery/{filename}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getJsFile(@PathParam("filename") String fileName) throws IOException {
-        fileName = "js/" + fileName;
+        fileName = "jQuery/" + fileName;
         Resources.getResource(fileName);
         return Resources.toString(Resources.getResource(fileName), UTF_8);
     }
 
-    @Path("css/{filename}")
-    @GET
-    @Produces(MediaType.WILDCARD)
-    public String getStyleSheet(@PathParam("filename") String fileName) throws IOException {
-        fileName = "css/" + fileName;
-        Resources.getResource(fileName);
-        return Resources.toString(Resources.getResource(fileName), UTF_8);
-    }
 
     @Path("/netid")
     @GET

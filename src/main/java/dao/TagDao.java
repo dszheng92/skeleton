@@ -1,6 +1,7 @@
 package dao;
 
 import org.jooq.Configuration;
+
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
@@ -22,30 +23,27 @@ public class TagDao {
                 .and(TAGS.RECEIPT_ID.eq(id))
                 .fetch(TAGS.NAME);
 
-
         if (tagsRecord.isEmpty()) {
             dsl.insertInto(TAGS, TAGS.NAME, TAGS.RECEIPT_ID).values(tagName, id).execute();
         } else {
-            dsl.delete(TAGS)
-                    .where(TAGS.NAME.eq(tagName)).and(TAGS.RECEIPT_ID.eq(id)).execute();
+            dsl.delete(TAGS).where(TAGS.NAME.eq(tagName)).and(TAGS.RECEIPT_ID.eq(id)).execute();
 
 
         }
     }
 
-    public List<Integer> getReceiptsIdFromTag(String tagName) {
-        return dsl
-                .selectFrom(TAGS)
-                .where(TAGS.NAME.eq(tagName))
-                .fetch(TAGS.RECEIPT_ID);
-    }
 
     public List<String> tagsReceiptFromId(int receiptId) {
-        return dsl
-                .selectFrom(TAGS)
-                .where(TAGS.RECEIPT_ID.eq(receiptId))
-                .fetch(TAGS.NAME);
+        return dsl.selectFrom(TAGS).where(TAGS.RECEIPT_ID.eq(receiptId)).fetch(TAGS.NAME);
+
     }
+
+    public List<Integer> getReceiptsIdFromTag(String tagName) {
+        return dsl.selectFrom(TAGS).where(TAGS.NAME.eq(tagName)).fetch(TAGS.RECEIPT_ID);
+    }
+
+
+
 
 
 }

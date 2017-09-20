@@ -31,7 +31,7 @@
 
         }
 
-        #new-receipt-container {
+        #receipt-container {
             display: none;
             text-align: right;
             position: relative;
@@ -137,9 +137,6 @@
 
         }
 
-        button.tag-chip::after {
-            content: '+'
-        }
 
         .receipt, .receiptList-header {
             display: flex;
@@ -185,7 +182,7 @@
 
     </style>
 
-    <script src="js/main.js"></script>
+    <script src="jQuery/javascript.js"></script>
     <title>dz336</title>
 
 </head>
@@ -199,7 +196,7 @@
 
 
 
-    <div id="new-receipt-container">
+    <div id="receipt-container">
         <input type="text" id="merchant" placeholder="merchant">
         <input type="number" id="amount" placeholder="amount">
         <button id="cancel-receipt">cancel</button>
